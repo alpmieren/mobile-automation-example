@@ -17,7 +17,7 @@ import static utilities.AppiumDriver.driver;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty", "html:target/cucumber-reports.html"},
+        plugin = {"pretty", "html:target/cucumber-reports.html","json:target/cucumber.json"},
         features = "src/test/resources/features",
         glue = "stepdefinitions",
         dryRun = false,
@@ -42,7 +42,7 @@ public class Runner {
     public static void afterAllTests() throws Exception {
         String base64Video = driver.stopRecordingScreen();
         byte[] decodedVideo = Base64.getDecoder().decode(base64Video);
-        Path destinationPath = Paths.get("target", "screenRecording", "test.mp4");
+        Path destinationPath = Paths.get("target",  "test.mp4");
         try (OutputStream out = Files.newOutputStream(destinationPath)) {
             out.write(decodedVideo);
         }
